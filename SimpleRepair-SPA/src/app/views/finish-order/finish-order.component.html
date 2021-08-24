@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h1>Order: {{ itofficekanban.code }} , Line: {{ itofficekanban.line_Name }}</h1>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label
+              class="col-md-2 col-form-label"
+              for="hf-password"
+            >Description</label>
+            <div class="col-md-3">
+              <input
+                type="text"
+                [(ngModel)]="itofficekanban.description"
+                name="description"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="col-md-1"></div>
+            <label
+              class="col-md-2 col-form-label"
+              for="hf-password"
+            >Solution</label>
+            <div class="col-md-3">
+              <input
+                type="text"
+                [(ngModel)]="itofficekanban.solution"
+                name="solution"
+                class="form-control"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button
+            type="button"
+            class="btn btn-sm btn-success"
+            (click)="finish()"
+          >
+            <i class="fa fa-check"></i> Finish
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

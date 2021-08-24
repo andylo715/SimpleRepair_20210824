@@ -1,0 +1,115 @@
+<div class="card-header">
+  <div class="row mt-2">
+    <div class="col-md-2">
+      <select
+        [(ngModel)]="paramSearch"
+        value="all"
+        class="form-control"
+        id="active"
+      >
+        <option value="N">Not Yet Close</option>
+        <option value="all">All</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="loadITOfficeKanban()"
+      >
+        <i class="fa fa-search"></i> Search
+      </button>
+    </div>
+    <div
+      class="col-md"
+      style="text-align: right;"
+    >
+      <button
+        type="button"
+        class="btn btn-info"
+        (click)="maintainStation()"
+      >
+        <i class="fa fa-cog"></i> Station
+      </button>
+    </div>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr style="background-color:cyan ;">
+        <th>ReportNo</th>
+        <th>Cell</th>
+        <th>Station</th>
+        <th>Report Time</th>
+        <th>Repair Time</th>
+        <th>Status</th>
+        <th>Close YN</th>
+        <th>Closing Time</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        id="list{{ idx }}"
+        *ngFor="let itofficekanban of itofficekanbans; let idx = index"
+        [ngStyle]="{'background-color':rowColor(itofficekanban.signRepairTime, itofficekanban.status) == 'red' ? 'lightcoral' : rowColor(itofficekanban.signRepairTime, itofficekanban.status) == 'yellow' ? 'gold' : 'white'}"
+      >
+        <td>{{ itofficekanban.code }}</td>
+        <td>{{ itofficekanban.line_Name }}</td>
+        <td>{{ itofficekanban.station_Name }}</td>
+        <td>{{ itofficekanban.signRepairTime | date: "yyyy/MM/dd HH:mm" }}</td>
+        <td>{{ itofficekanban.startRepairTime | date: "yyyy/MM/dd HH:mm" }}</td>
+        <td>{{ itofficekanban.status=="N" ? "Open" : itofficekanban.status=="Y" ? "Close" : "Repair" }}</td>
+        <td>{{ itofficekanban.isRepaired }}</td>
+        <td>{{ itofficekanban.isRepairedTime | date: "yyyy/MM/dd HH:mm" }}</td>
+        <td>
+          <!-- 接單 -->
+          <button
+            type="button"
+            class="btn btn-primary btn-sm ml-2"
+            (click)="getOrder(itofficekanban)"
+            [disabled]="itofficekanban.status=='N' ? false : true"
+          >
+            <i class="fa fa-share-square-o"></i>
+          </button>
+          <!-- 完成 -->
+          <button
+            type="button"
+            class="btn btn-success btn-sm ml-2"
+            (click)="finishOrder(itofficekanban)"
+            [disabled]="itofficekanban.status=='R' ? false : true"
+          >
+            <i class="fa fa-check-circle fa-lg"></i>
+          </button>
+          <!-- DETAIL -->
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm ml-2"
+            (click)="showDetail(itofficekanban)"
+          >
+            <i class="fa fa-list fa-lg"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div
+  class="d-flex"
+  *ngIf="pagination.totalPages >= 1"
+>
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [(ngModel)]="pagination.currentPage"
+    [itemsPerPage]="pagination.itemsPerPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+    [maxSize]="5"
+  >
+  </pagination>
+</div>

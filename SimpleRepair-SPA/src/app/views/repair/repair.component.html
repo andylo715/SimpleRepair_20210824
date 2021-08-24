@@ -1,0 +1,60 @@
+<div class="animated fadeIn">
+  <!--/.row-->
+  <div class="row">
+    <!--/.col-->
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row mt-2">
+            <table class="table table-bordered">
+              <tr *ngFor="let block of outsidenum">
+                <td
+                  *ngFor="let data of getByLineNum_2ndWay(block)"
+                  [attr.rowspan]="data.rowCount"
+                  style="text-align: center; vertical-align: middle;"
+                >
+                  <ng-container *ngIf="data.level > 3; else elseTemplate">
+                    <ng-container *ngIf="!data.status!=''; else elseTemplate">
+                      <!-- 未維修 -->
+                      <button
+                        (click)="repairClick(data)"
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        style="width:100%"
+                      ><i class="fa fa-check"></i> {{ data.unitName }}</button>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <ng-container *ngIf="data.status=='all'; else elseTemplate">
+                        <!-- 維修中 -->
+                        <button
+                          (click)="repairClick(data)"
+                          type="button"
+                          disabled
+                          class="btn btn-block btn-secondary btn-sm"
+                          style="width:100%"
+                        ><i class="fa fa-wrench"></i> {{ data.unitName }}</button>
+                      </ng-container>
+                      <ng-template #elseTemplate>
+                        <!-- 開單等待中 -->
+                        <button
+                          (click)="repairClick(data)"
+                          type="button"
+                          class="btn btn-warning btn-sm"
+                          style="width:100%"
+                        ><i class="fa fa-cog"></i> {{ data.unitName }}</button>
+                      </ng-template>
+                    </ng-template>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    {{ data.unitName }}
+                  </ng-template>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+</div>

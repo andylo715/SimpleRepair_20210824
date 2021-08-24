@@ -1,0 +1,55 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h1>Confirm Line {{ repair.unitName }}</h1>
+        </div>
+        <div class="card-body">
+          <div class="row mt-2">
+            <table class="table table-bordered">
+              <tr>
+                <td
+                  *ngFor="let data of linestations"
+                  style="text-align: center; vertical-align: middle"
+                >
+                  <ng-container *ngIf="data.isUsing == 'Y'; else elseTemplate">
+                    <!-- 維修中 -->
+                    <div class="d-flex justify-content-center">
+                      <button
+                        (click)="StationRepairClick(repair, data)"
+                        type="button"
+                        disabled
+                        class="btn btn-secondary btn-sm d-flex"
+                        style="font-size: 16px"
+                      >
+                        <i class="fa fa-wrench align-self-center"></i>
+                        {{ data.station_Name }}<br />{{ data.station_IT_PIC
+                        }}<br />{{ data.station_IT_PhoneNum }}
+                      </button>
+                    </div>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <!-- 可使用 -->
+                    <div class="d-flex justify-content-center">
+                      <button
+                        (click)="StationRepairClick(repair, data)"
+                        type="button"
+                        class="btn btn-primary btn-sm d-flex"
+                        style="font-size: 16px"
+                      >
+                        <i class="fa fa-check align-self-center"></i>
+                        {{ data.station_Name }}<br />{{ data.station_IT_PIC
+                        }}<br />{{ data.station_IT_PhoneNum }}
+                      </button>
+                    </div>
+                  </ng-template>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

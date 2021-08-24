@@ -1,0 +1,45 @@
+<app-header
+  [navbarBrandRouterLink]="['/dashboard']"
+  [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/img/logo/LogoSYF.png', width: 60, height: 40, alt: 'Logo'}"
+  [navbarBrandMinimized]="{src: 'assets/img/logo/LogoSYF.png', width: 30, height: 30, alt: 'Logo'}"
+  [sidebarToggler]="'lg'"
+  [asideMenuToggler]="''">
+  <a>Computer Facility Repairing system</a>
+  <ul class="nav navbar-nav ml-auto">
+   <!-- 上navbar -->
+   
+  </ul>
+</app-header>
+<div class="app-body">
+  <!-- <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
+    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+  </app-sidebar> -->
+  <!-- Main content -->
+  <main class="main">
+    <cui-breadcrumb>
+
+    </cui-breadcrumb>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div><!-- /.container-fluid -->
+  </main>
+  <app-aside [fixed]="true" [display]="false" [ngClass]="'test'">
+    <tabset>
+      <tab>
+        <ng-template tabHeading><i class="icon-list"></i></ng-template>
+      </tab>
+      <tab>
+        <ng-template tabHeading><i class="icon-speech"></i></ng-template>
+      </tab>
+      <tab>
+        <ng-template tabHeading><i class="icon-settings"></i></ng-template>
+      </tab>
+    </tabset>
+  </app-aside>
+</div>
+<app-footer>
+  <span>Copyright &copy; 2021 <a href="javascript:;">SHYANG SHIN BAO INDUSTRIAL CO., LTD.</a> All rights reserved</span>
+  <span class="ml-auto">Powered by <a href="javascript:;">MES</a></span>
+</app-footer>
